@@ -1,0 +1,65 @@
+!!!
+%html
+  %head
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Transcript
+    :css
+      body {
+        font-family: Helvetica;
+        padding: 20px;
+      }
+
+      table th, table td {
+        text-align: left;
+      }
+
+      ul {
+        list-style: none outside;
+        padding: 0;
+        width: 600px;
+      }
+      
+      ul li {
+        border: 1px solid #eee;
+        border-radius: 10px;
+        margin: 1em 0;
+        padding: 0.5em 0.75em;
+      }
+
+      ul li.direction-out {
+        text-align: right;
+      }
+
+      p.timestamp {
+        color: #666;
+        font-size: 0.8em;
+        margin: 0 0 0.3em;
+      }
+
+      div.content p {
+        margin: 0 0 0.5em;
+      }
+  %body
+    %h1 Transcript
+    %table
+      %tr
+        %th Customer
+        %td
+          %a{href: @transcript[:customer_link], target: "_blank"}= @transcript[:customer]["name"]
+      %tr
+        %th Agents
+        %td= @transcript[:agents].map { |id, a| "#{a["name"]} (#{a["emailAddress"]})" }.join(", ")
+      %tr
+        %th Started on
+        %td= @transcript[:started_at]
+      %tr
+        %th Conversation
+        %td
+          %a{href: @transcript[:link], target: "_blank"} Link
+    %article
+      %ul
+        - @transcript[:items].each do |item|
+          %li{class: "direction-#{item[:direction]}"}
+            %p.timestamp On #{item[:created_at]}, #{item[:creator]} #{item[:channel]}:
+            %div.content
+              %p= item[:content]

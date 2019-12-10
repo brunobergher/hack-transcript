@@ -1,0 +1,42 @@
+!!!
+%html
+  %head
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Transcript Hack Thingy
+    :css
+      body {
+        font-family: Helvetica;
+        font-size: 14px;
+        padding: 20px;
+      }
+
+      label {
+        display: inline-block;
+        width: 160px;
+      }
+
+      input {
+        display: inline-block;
+        width: 250px;
+      }
+
+  %body
+    %h1 Transcript Hack Thingy
+    %form{action: "transcript", method: "post"}
+      %div
+        %label Environment
+        %input#env{type: "text", name: "auth[env]", placeholder: "master.gladly.qa", :required => "true"}/
+      %div
+        %label API User
+        %input#apiUser{type: "text", name: "auth[user]", placeholder: "you@gladly.com", :required => "true"}/
+      %div
+        %label API Token
+        %input#apiToken{type: "text", name: "auth[token]", placeholder: "some id", :required => "true"}/
+      %div
+        %label Conversation ID
+        %input#convId{type: "text", name: "conversation_id", placeholder: "some id (if you have it)"}/
+      %div
+        %label (or) Conversation Item ID
+        %input#convId{type: "text", name: "conversation_item_id", placeholder: "some id (get it from 'copy link to item')"}/
+      
+      %button#button{type: "submit"} Get Transcript
